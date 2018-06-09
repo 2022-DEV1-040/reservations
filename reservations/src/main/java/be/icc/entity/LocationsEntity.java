@@ -1,30 +1,34 @@
 package be.icc.entity;
 
+import java.util.Collection;
 import java.util.Objects;
 import javax.persistence.*;
-
 @Entity
 @Table(name = "locations", schema = "reservations", catalog = "")
 public class LocationsEntity {
-    private int id;
+    private Integer id;
     private String slug;
     private String designation;
     private String address;
     private String website;
     private String phone;
+    private LocalitiesEntity localitiesByLocalityId;
+    private Collection<RepresentationsEntity> representationsById;
+    private Collection<ShowsEntity> showsById;
 
     @Id
-    @Column(name = "id")
-    public int getId() {
+    @GeneratedValue
+    @Column(name = "id", nullable = false)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "slug")
+    @Column(name = "slug", nullable = false, length = 60)
     public String getSlug() {
         return slug;
     }
@@ -34,7 +38,7 @@ public class LocationsEntity {
     }
 
     @Basic
-    @Column(name = "designation")
+    @Column(name = "designation", nullable = false, length = 60)
     public String getDesignation() {
         return designation;
     }
@@ -44,7 +48,7 @@ public class LocationsEntity {
     }
 
     @Basic
-    @Column(name = "address")
+    @Column(name = "address", nullable = false, length = 255)
     public String getAddress() {
         return address;
     }
@@ -54,7 +58,7 @@ public class LocationsEntity {
     }
 
     @Basic
-    @Column(name = "website")
+    @Column(name = "website", nullable = false, length = 255)
     public String getWebsite() {
         return website;
     }
@@ -64,7 +68,7 @@ public class LocationsEntity {
     }
 
     @Basic
-    @Column(name = "phone")
+    @Column(name = "phone", nullable = false, length = 30)
     public String getPhone() {
         return phone;
     }
@@ -78,7 +82,7 @@ public class LocationsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LocationsEntity that = (LocationsEntity) o;
-        return id == that.id &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(slug, that.slug) &&
                 Objects.equals(designation, that.designation) &&
                 Objects.equals(address, that.address) &&
@@ -90,5 +94,33 @@ public class LocationsEntity {
     public int hashCode() {
 
         return Objects.hash(id, slug, designation, address, website, phone);
+    }
+
+    @ManyToOne(cascade = {})
+    @JoinColumn(name = "locality_id", referencedColumnName = "id", nullable = false, table = "")
+    public LocalitiesEntity getLocalitiesByLocalityId() {
+        return localitiesByLocalityId;
+    }
+
+    public void setLocalitiesByLocalityId(LocalitiesEntity localitiesByLocalityId) {
+        this.localitiesByLocalityId = localitiesByLocalityId;
+    }
+
+    @OneToMany(cascade = {}, mappedBy = "locationsByLocationId")
+    public Collection<RepresentationsEntity> getRepresentationsById() {
+        return representationsById;
+    }
+
+    public void setRepresentationsById(Collection<RepresentationsEntity> representationsById) {
+        this.representationsById = representationsById;
+    }
+
+    @OneToMany(cascade = {}, mappedBy = "locationsByLocationId")
+    public Collection<ShowsEntity> getShowsById() {
+        return showsById;
+    }
+
+    public void setShowsById(Collection<ShowsEntity> showsById) {
+        this.showsById = showsById;
     }
 }

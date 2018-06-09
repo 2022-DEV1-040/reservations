@@ -1,6 +1,7 @@
 package be.icc.controller;
 
 import be.icc.entity.UsersEntity;
+import be.icc.repository.RoleRepository;
 import be.icc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,8 @@ public class RegisterController {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private RoleRepository roleRepository;
 
 
     // Return registration form template
@@ -45,7 +48,8 @@ public class RegisterController {
         if (bindingResult.hasErrors()) {
             modelAndView.setViewName("register");
         } else { // l'utilisateur est inscrit
-
+            user.setRolesByRoleId(roleRepository.findByRole("membre"));
+            user.setLangue("FR");
             userRepository.save(user);
 
             String appUrl = request.getScheme() + "://" + request.getServerName();

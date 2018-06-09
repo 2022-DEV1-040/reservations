@@ -1,31 +1,35 @@
 package be.icc.entity;
 
 import java.math.BigDecimal;
+import java.util.Collection;
 import java.util.Objects;
 import javax.persistence.*;
-
 @Entity
 @Table(name = "shows", schema = "reservations", catalog = "")
 public class ShowsEntity {
-    private int id;
+    private Integer id;
     private String slug;
     private String title;
     private String posterUrl;
-    private byte bookable;
+    private Byte bookable;
     private BigDecimal price;
+    private Collection<ArtisteTypeShowEntity> artisteTypeShowsById;
+    private Collection<RepresentationsEntity> representationsById;
+    private LocationsEntity locationsByLocationId;
 
     @Id
-    @Column(name = "id")
-    public int getId() {
+    @GeneratedValue
+    @Column(name = "id", nullable = false)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "slug")
+    @Column(name = "slug", nullable = false, length = 60)
     public String getSlug() {
         return slug;
     }
@@ -35,7 +39,7 @@ public class ShowsEntity {
     }
 
     @Basic
-    @Column(name = "title")
+    @Column(name = "title", nullable = false, length = 255)
     public String getTitle() {
         return title;
     }
@@ -45,7 +49,7 @@ public class ShowsEntity {
     }
 
     @Basic
-    @Column(name = "poster_url")
+    @Column(name = "poster_url", nullable = false, length = 255)
     public String getPosterUrl() {
         return posterUrl;
     }
@@ -55,17 +59,17 @@ public class ShowsEntity {
     }
 
     @Basic
-    @Column(name = "bookable")
-    public byte getBookable() {
+    @Column(name = "bookable", nullable = false)
+    public Byte getBookable() {
         return bookable;
     }
 
-    public void setBookable(byte bookable) {
+    public void setBookable(Byte bookable) {
         this.bookable = bookable;
     }
 
     @Basic
-    @Column(name = "price")
+    @Column(name = "price", nullable = false, precision = 2)
     public BigDecimal getPrice() {
         return price;
     }
@@ -73,17 +77,16 @@ public class ShowsEntity {
     public void setPrice(BigDecimal price) {
         this.price = price;
     }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ShowsEntity that = (ShowsEntity) o;
-        return id == that.id &&
-                bookable == that.bookable &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(slug, that.slug) &&
                 Objects.equals(title, that.title) &&
                 Objects.equals(posterUrl, that.posterUrl) &&
+                Objects.equals(bookable, that.bookable) &&
                 Objects.equals(price, that.price);
     }
 
@@ -91,5 +94,33 @@ public class ShowsEntity {
     public int hashCode() {
 
         return Objects.hash(id, slug, title, posterUrl, bookable, price);
+    }
+
+    @OneToMany(cascade = {}, mappedBy = "showsByShowId")
+    public Collection<ArtisteTypeShowEntity> getArtisteTypeShowsById() {
+        return artisteTypeShowsById;
+    }
+
+    public void setArtisteTypeShowsById(Collection<ArtisteTypeShowEntity> artisteTypeShowsById) {
+        this.artisteTypeShowsById = artisteTypeShowsById;
+    }
+
+    @OneToMany(cascade = {}, mappedBy = "showsByShowId")
+    public Collection<RepresentationsEntity> getRepresentationsById() {
+        return representationsById;
+    }
+
+    public void setRepresentationsById(Collection<RepresentationsEntity> representationsById) {
+        this.representationsById = representationsById;
+    }
+
+    @ManyToOne(cascade = {})
+    @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = false, table = "")
+    public LocationsEntity getLocationsByLocationId() {
+        return locationsByLocationId;
+    }
+
+    public void setLocationsByLocationId(LocationsEntity locationsByLocationId) {
+        this.locationsByLocationId = locationsByLocationId;
     }
 }

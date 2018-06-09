@@ -1,27 +1,29 @@
 package be.icc.entity;
 
+import java.util.Collection;
 import java.util.Objects;
 import javax.persistence.*;
-
 @Entity
 @Table(name = "artists", schema = "reservations", catalog = "")
 public class ArtistsEntity {
-    private int id;
+    private Integer id;
     private String firstname;
     private String lastname;
+    private Collection<ArtisteTypeEntity> artisteTypesById;
 
     @Id
-    @Column(name = "id")
-    public int getId() {
+    @GeneratedValue
+    @Column(name = "id", nullable = false)
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
     @Basic
-    @Column(name = "firstname")
+    @Column(name = "firstname", nullable = false, length = 60)
     public String getFirstname() {
         return firstname;
     }
@@ -31,7 +33,7 @@ public class ArtistsEntity {
     }
 
     @Basic
-    @Column(name = "lastname")
+    @Column(name = "lastname", nullable = false, length = 60)
     public String getLastname() {
         return lastname;
     }
@@ -45,7 +47,7 @@ public class ArtistsEntity {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         ArtistsEntity that = (ArtistsEntity) o;
-        return id == that.id &&
+        return Objects.equals(id, that.id) &&
                 Objects.equals(firstname, that.firstname) &&
                 Objects.equals(lastname, that.lastname);
     }
@@ -54,5 +56,14 @@ public class ArtistsEntity {
     public int hashCode() {
 
         return Objects.hash(id, firstname, lastname);
+    }
+
+    @OneToMany(cascade = {}, mappedBy = "artistsByArtistId")
+    public Collection<ArtisteTypeEntity> getArtisteTypesById() {
+        return artisteTypesById;
+    }
+
+    public void setArtisteTypesById(Collection<ArtisteTypeEntity> artisteTypesById) {
+        this.artisteTypesById = artisteTypesById;
     }
 }

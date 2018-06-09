@@ -5,18 +5,11 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class SpringReservationsApplication implements CommandLineRunner {
+public class SpringReservationsApplication {
 
 
     public static void main(String[] args) {
 		SpringApplication.run(SpringReservationsApplication.class, args);
 	}
-
-
-    @Override
-    public void run(String... strings) throws Exception {
-
-    }
-
 
 }

@@ -5,3 +5,8 @@ h1{
 h2{
     color:#FF0000;
 }
+
+.dataTables_wrapper {
+    margin: 0 auto;
+    width: 50%;
+}

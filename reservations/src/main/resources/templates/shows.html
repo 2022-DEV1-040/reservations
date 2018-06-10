@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<body>
+<div th:include="fragments/menu"></div>
+<div class="table-responsive">
+    <table class="table data-table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Heure de représentation</th>
+            <th>Lieu</th>
+            <th>Detail</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="show : ${shows}">
+            <td th:text="${show.title}">Text ...</td>
+            <td>
+            <div class="row">
+             <div th:each="representation : ${show.representationsById}">
+                     <div class="col-xs-10"  th:text="${representation.when}"/>
+
+            </div>
+            </div>
+            </td>
+            <td><button type="button"
+                        class="btn btn-primary btn-condensed">
+                <i class="glyphicon glyphicon-info-sign"></i>
+            </button></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

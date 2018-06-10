@@ -1,5 +1,7 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
 <body>
 <div th:include="fragments/menu"></div>
 
@@ -8,10 +10,9 @@
 
     <div class="starter-template">
         <h1>Spring Boot Web Thymeleaf Example</h1>
-        <h2>
-            <span th:text="'Message: ' + ${message}"></span>
-        </h2>
     </div>
+
+    <h1 th:inline="text">Hello [[${#httpServletRequest.remoteUser}]]!</h1>
 
 </div>
 </body>

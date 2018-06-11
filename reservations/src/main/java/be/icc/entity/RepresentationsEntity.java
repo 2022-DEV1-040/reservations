@@ -7,7 +7,7 @@ import javax.persistence.*;
 @Entity
 @Table(name = "representations", schema = "reservations", catalog = "")
 public class RepresentationsEntity {
-    private Integer id;
+    private Long id;
     private Timestamp when;
     private Collection<RepresentationUserEntity> representationUsersById;
     private ShowsEntity showsByShowId;
@@ -16,11 +16,11 @@ public class RepresentationsEntity {
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

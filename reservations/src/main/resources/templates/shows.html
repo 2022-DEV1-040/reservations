@@ -4,31 +4,46 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <body>
 <div th:include="fragments/menu"></div>
+<form  th:action="@{/searchShow}" method="get">
+    <input type="text" name="name" id="name" placeholder="name"/>
+    <input type="submit" value="Search"/>
+</form>
+
 <div class="table-responsive">
     <table class="table data-table">
         <thead>
         <tr>
             <th>Nom</th>
+            <th>Prix</th>
             <th>Heure de représentation</th>
-            <th>Lieu</th>
-            <th>Detail</th>
         </tr>
         </thead>
         <tbody>
         <tr th:each="show : ${shows}">
-            <td th:text="${show.title}">Text ...</td>
+            <td th:text="${show.title}"/>
+            <td th:text="${show.price}"/>
             <td>
             <div class="row">
              <div th:each="representation : ${show.representationsById}">
-                     <div class="col-xs-10"  th:text="${representation.when}"/>
-
+                     <div class="col-xs-5"  th:text="${representation.when}"/>
+                 <table>
+                     <tr th:each="location : ${representation.getLocationsByLocationId()}">
+                     <td>
+                         <div th:text="${location.designation}"/>
+                     </td>
+                         <td>
+                             <form  th:action="@{/bookingShow}" method="get">
+                                 <div class="col-xs-5">
+                                     <input type="hidden" name="idRepresentation" id="idRepresentation"  th:value="${representation.id}"/>
+                                     <button type="submit">Reserver</button>
+                                 </div>
+                             </form>
+                         </td>
+                 </tr>
+                 </table>
             </div>
             </div>
             </td>
-            <td><button type="button"
-                        class="btn btn-primary btn-condensed">
-                <i class="glyphicon glyphicon-info-sign"></i>
-            </button></td>
         </tr>
         </tbody>
     </table>

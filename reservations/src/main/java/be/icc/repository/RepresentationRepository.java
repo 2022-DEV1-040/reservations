@@ -1,5 +1,6 @@
 package be.icc.repository;
 
+import be.icc.entity.RepresentationUserEntity;
 import be.icc.entity.RepresentationsEntity;
 import be.icc.entity.ShowsEntity;
 import org.springframework.data.repository.CrudRepository;
@@ -9,5 +10,5 @@ import java.util.List;
 
 @Repository("representationRepository")
 public interface RepresentationRepository extends CrudRepository<RepresentationsEntity, Long> {
-
+    RepresentationsEntity findByRepresentationUsersById(RepresentationUserEntity representationUsersById);
 }

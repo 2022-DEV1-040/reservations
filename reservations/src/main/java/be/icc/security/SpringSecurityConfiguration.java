@@ -46,7 +46,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
 
         // /userInfo page requires login as ROLE_USER or ROLE_ADMIN.
         // If no login, it will redirect to /login page.
-        http.authorizeRequests().antMatchers("/userInfo,/validationBooking").access("hasAuthority('membre') or hasAuthority('admin')");
+        http.authorizeRequests().antMatchers("/userInfo","/bookingShow", "/reservations").access("hasAuthority('membre') or hasAuthority('admin')");
 
         // For ADMIN only.
         http.authorizeRequests().antMatchers("/admin").access("hasRole('admin')");

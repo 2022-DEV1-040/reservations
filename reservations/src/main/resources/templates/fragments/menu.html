@@ -22,6 +22,7 @@
                 <li class="active"><a href="/">Accueil</a></li>
                 <li class="active"><a href="/shows">Shows</a></li>
                 <li th:if="${#httpServletRequest.remoteUser != null}"><a href="logout">Logout</a></li>
+                <li th:if="${#httpServletRequest.remoteUser != null}"><a href="reservations">Mes reservations</a></li>
                 <li th:if="${#httpServletRequest.remoteUser == null}"><a href="login">Login</a></li>
                 <li th:if="${#httpServletRequest.remoteUser == null}"><a href="register">Inscription</a> </li>
             </ul>

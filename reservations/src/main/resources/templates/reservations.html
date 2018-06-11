@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<body>
+<div th:include="fragments/menu"></div>
+
+<div class="table-responsive">
+    <table class="table data-table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+            <th>Heure de représentation</th>
+            <th>Salle</th>
+            <th>Adresse</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="representation : ${representations}">
+            <td th:text="${representation.showsByShowId.title}"/>
+            <td th:text="${representation.when}"/>
+            <td th:text="${representation.locationsByLocationId.designation}"/>
+            <td th:text="${representation.locationsByLocationId.address}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>

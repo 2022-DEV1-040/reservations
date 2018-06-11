@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -33,10 +34,10 @@ public class ShowController {
     private RepresentationUserRepository representationUserRepository;
 
     @GetMapping("/shows")
-    public ModelAndView shows(ModelAndView modelAndView){
+    public ModelAndView shows(ModelAndView modelAndView) {
 
         List<ShowsEntity> shows = (List<ShowsEntity>) showRepository.findAll();
-        modelAndView.addObject("shows",shows);
+        modelAndView.addObject("shows", shows);
         modelAndView.setViewName("shows");
 
         return modelAndView;
@@ -50,10 +51,6 @@ public class ShowController {
 
     @RequestMapping(value = "/bookingShow", method = RequestMethod.GET)
     public ModelAndView processRegistrationForm(ModelAndView modelAndView, @RequestParam(value = "idRepresentation", required = true) Long idRepresentation, Principal principal) {
-        if (principal == null) {
-            modelAndView.setViewName("403");
-            return modelAndView;
-        }
         UsersEntity user = userRepository.findByLogin(principal.getName());
         RepresentationsEntity representation = representationRepository.findOne(idRepresentation);
         RepresentationUserEntity representationUserEntity = new RepresentationUserEntity();
@@ -65,4 +62,18 @@ public class ShowController {
         return modelAndView;
     }
 
+    @GetMapping("/reservations")
+    public ModelAndView reservations(ModelAndView modelAndView, Principal principal) {
+        UsersEntity user = userRepository.findByLogin(principal.getName());
+
+        List<RepresentationUserEntity> representationUsers =  representationUserRepository.findByUsersByUserId(user);
+        ArrayList<RepresentationsEntity> representations = new ArrayList<RepresentationsEntity>();
+        for(RepresentationUserEntity reservation : representationUsers) {
+            representations.add(representationRepository.findByRepresentationUsersById(reservation));
+        }
+        modelAndView.addObject("representations", representations);
+        modelAndView.setViewName("reservations");
+
+        return modelAndView;
     }
+}

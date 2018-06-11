@@ -5,19 +5,23 @@ import be.icc.repository.RoleRepository;
 import be.icc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
+import java.security.Principal;
 
 
 @Controller
-public class RegisterController {
+public class UserController {
 
     @Autowired
     private UserRepository userRepository;
@@ -65,6 +69,37 @@ public class RegisterController {
             modelAndView.addObject("user",user);
             modelAndView.addObject("confirmationMessage", "Vous êtes bien inscrit sur le site");
             modelAndView.setViewName("register");
+        }
+
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/userInfo", method = RequestMethod.GET)
+    public String userInfo(Model model, Principal principal) {
+
+        UsersEntity loginedUser = userRepository.findByLogin(principal.getName());
+
+        model.addAttribute("user", loginedUser);
+
+        return "userInfo";
+    }
+
+    // Process form input data
+    @RequestMapping(value = "/modifyProfil", method = RequestMethod.POST)
+    public ModelAndView processModifyForm(ModelAndView modelAndView, UsersEntity user, BindingResult bindingResult, HttpServletRequest request, Principal principal) {
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("userInfo");
+        } else {
+            UsersEntity loginedUser = userRepository.findByLogin(principal.getName());
+            loginedUser.setEmail(user.getEmail());
+            loginedUser.setFirstname(user.getFirstname());
+            loginedUser.setLastname(user.getLastname());
+            userRepository.save(loginedUser);
+
+            modelAndView.addObject("user",user);
+            modelAndView.addObject("confirmationMessage", "Votre profil a ete mis a jour");
+            modelAndView.setViewName("userInfo");
         }
 
         return modelAndView;

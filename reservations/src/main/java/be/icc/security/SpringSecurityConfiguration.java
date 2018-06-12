@@ -13,6 +13,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.thymeleaf.extras.springsecurity4.dialect.SpringSecurityDialect;
+import org.thymeleaf.spring4.SpringTemplateEngine;
 
 @Configuration
 @EnableWebSecurity
@@ -49,7 +51,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/userInfo","/bookingShow", "/reservations").access("hasAuthority('membre') or hasAuthority('admin')");
 
         // For ADMIN only.
-        http.authorizeRequests().antMatchers("/admin").access("hasRole('admin')");
+        http.authorizeRequests().antMatchers("/newShow").access("hasAuthority('admin')");
 
         // When the user has logged in as XX.
         // But access a page that requires role YY,
@@ -61,7 +63,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
                 // Submit URL of login page.
                 .loginProcessingUrl("/j_spring_security_check") // Submit URL
                 .loginPage("/login")//
-                .defaultSuccessUrl("/userInfo")//
+                .defaultSuccessUrl("/")//
                 .failureUrl("/login?error=true")//
                 .usernameParameter("login")//
                 .passwordParameter("password")

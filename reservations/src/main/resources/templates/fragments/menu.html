@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.springframework.org/security/tags">
 <head>
     <title>Spring Boot Thymeleaf Hello World Example</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -23,6 +23,7 @@
                 <li class="active"><a href="/shows">Shows</a></li>
                 <li th:if="${#httpServletRequest.remoteUser != null}"><a href="reservations">Mes reservations</a></li>
                 <li th:if="${#httpServletRequest.remoteUser != null}"><a href="userInfo">Mon compte</a></li>
+                <li th:if="${#httpServletRequest.remoteUser != null}"><a href="newShow">Nouveau show</a></li>
                 <li th:if="${#httpServletRequest.remoteUser != null}"><a href="logout">Logout</a></li>
                 <li th:if="${#httpServletRequest.remoteUser == null}"><a href="login">Login</a></li>
                 <li th:if="${#httpServletRequest.remoteUser == null}"><a href="register">Inscription</a> </li>

@@ -11,12 +11,14 @@ import be.icc.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +75,27 @@ public class ShowController {
         }
         modelAndView.addObject("representations", representations);
         modelAndView.setViewName("reservations");
+
+        return modelAndView;
+    }
+
+    @GetMapping(value = "/newShow")
+    public ModelAndView newShow(ModelAndView modelAndView, RepresentationsEntity representation) {
+        modelAndView.setViewName("/newShow");
+        modelAndView.addObject("representation", representation);
+        return modelAndView;
+    }
+
+    @RequestMapping(value = "/addRepresentation", method = RequestMethod.POST)
+    public ModelAndView addPresentation(ModelAndView modelAndView, RepresentationsEntity representation, BindingResult bindingResult, HttpServletRequest request) {
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("newShow");
+        } else {
+            representationRepository.save(representation);
+            modelAndView.addObject("representation",representation);
+            modelAndView.addObject("confirmationMessage", "La representation a bien ete cree");
+            modelAndView.setViewName("newShow");
+        }
 
         return modelAndView;
     }

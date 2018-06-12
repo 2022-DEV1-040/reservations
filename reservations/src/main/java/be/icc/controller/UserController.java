@@ -67,8 +67,8 @@ public class UserController {
             userRepository.save(user);
 
             modelAndView.addObject("user",user);
-            modelAndView.addObject("confirmationMessage", "Vous êtes bien inscrit sur le site");
-            modelAndView.setViewName("register");
+            modelAndView.addObject("confirmationMessage", "Vous etes bien inscrit sur le site");
+            modelAndView.setViewName("login");
         }
 
         return modelAndView;

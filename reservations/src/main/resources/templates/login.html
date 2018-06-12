@@ -4,7 +4,8 @@
 <div th:include="fragments/menu"></div>
 <h1>Login</h1>
 
-
+<div th:if="${confirmationMessage}" class="alert alert-success"
+     role="alert" th:text="${confirmationMessage}"></div>
 
 <h3>Enter user name and password:</h3>
 <form name='f' th:action="@{/j_spring_security_check}" method='POST'>

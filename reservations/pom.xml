@@ -69,8 +69,13 @@
         </dependency>
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity3</artifactId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
 			<version>3.0.2.RELEASE</version>
+		</dependency>
+		<dependency>
+			<groupId>org.thymeleaf.extras</groupId>
+			<artifactId>thymeleaf-extras-java8time</artifactId>
+			<version>2.1.0.RELEASE</version>
 		</dependency>
     </dependencies>
 	<build>

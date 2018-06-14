@@ -6,10 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -40,6 +37,24 @@ public class ShowController {
         modelAndView.setViewName("shows");
 
         return modelAndView;
+    }
+
+    @GetMapping("/showsParCategorie")
+    public ModelAndView showsParCategorie(ModelAndView modelAndView) {
+
+        modelAndView.addObject("categories", categoryRepository.findAll());
+        modelAndView.setViewName("showsParCategorie");
+
+        return modelAndView;
+    }
+
+    @GetMapping("/showsParCategorie/{name}")
+    public String showsByCategoryId(@PathVariable("name")String name, Model model) {
+
+        model.addAttribute("shows", showRepository.findByCategory(categoryRepository.findByNom(name)));
+        model.addAttribute("categoriesList", categoryRepository.findAll());
+
+        return "shows";
     }
 
     @RequestMapping(value = "searchShow", method = RequestMethod.GET)

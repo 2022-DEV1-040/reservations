@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<body>
+<div th:include="fragments/menu"></div>
+
+<tr th:each="categorie : ${categories}">
+    <h3  th:utext="${categorie.nom}" style="color: red;"></h3>
+
+    <div class="table-responsive">
+    <table class="table data-table">
+        <thead>
+        <tr>
+            <th>Nom</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="show : ${categorie.shows}">
+            <td th:text="${show.title}"/>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</tr>
+</body>
+</html>

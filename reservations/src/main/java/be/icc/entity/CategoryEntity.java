@@ -8,6 +8,7 @@ import javax.persistence.*;
 public class CategoryEntity {
     private Long id;
     private String nom;
+    private Collection<ShowsEntity> shows;
 
     @Id
     @GeneratedValue
@@ -30,4 +31,12 @@ public class CategoryEntity {
         this.nom = nom;
     }
 
+    @OneToMany(cascade = {}, mappedBy = "category")
+    public Collection<ShowsEntity> getShows() {
+        return shows;
+    }
+
+    public void setShows(Collection<ShowsEntity> shows) {
+        this.shows = shows;
+    }
 }

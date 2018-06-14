@@ -6,17 +6,17 @@ import javax.persistence.*;
 @Entity
 @Table(name = "category", schema = "category", catalog = "")
 public class CategoryEntity {
-    private Integer id;
+    private Long id;
     private String nom;
 
     @Id
     @GeneratedValue
     @Column(name = "id", nullable = false)
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

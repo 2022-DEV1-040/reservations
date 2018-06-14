@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+
+<body>
+<div th:include="fragments/menu"></div>
+<table class="table data-table">
+    <tbody>
+    <tr th:each="category : ${categories}">
+        <td th:text="${category.nom}"/>
+        <td>
+        <form  th:action="@{/deleteCategory}" method="get">
+            <div class="col-xs-5">
+                <input type="hidden" name="idCategory" id="idCategory"  th:value="${category.id}"/>
+                <button type="submit">Supprimer</button>
+            </div>
+        </form>
+            <form  th:action="@{/categoryInfo}" method="get">
+                <div class="col-xs-5">
+                    <input type="hidden" name="idCategory" id="idCategory"  th:value="${category.id}"/>
+                    <button type="submit">Modifier</button>
+                </div>
+            </form>
+        </td>
+    </tr>
+    </tbody>
+</table>
+</body>
+</html>

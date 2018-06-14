@@ -24,6 +24,7 @@
                 <li th:if="${#httpServletRequest.remoteUser != null}"><a href="reservations">Mes reservations</a></li>
                 <li th:if="${#httpServletRequest.remoteUser != null}"><a href="userInfo">Mon compte</a></li>
                 <li th:if="${#httpServletRequest.remoteUser != null}"><a href="newShow">Nouveau show</a></li>
+                <li th:if="${#httpServletRequest.remoteUser != null}"><a href="categories">Editer category</a></li>
                 <li th:if="${#httpServletRequest.remoteUser != null}"><a href="logout">Logout</a></li>
                 <li th:if="${#httpServletRequest.remoteUser == null}"><a href="login">Login</a></li>
                 <li th:if="${#httpServletRequest.remoteUser == null}"><a href="register">Inscription</a> </li>

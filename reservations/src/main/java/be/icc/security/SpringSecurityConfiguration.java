@@ -51,7 +51,7 @@ public class SpringSecurityConfiguration extends WebSecurityConfigurerAdapter {
         http.authorizeRequests().antMatchers("/userInfo","/bookingShow", "/reservations").access("hasAuthority('membre') or hasAuthority('admin')");
 
         // For ADMIN only.
-        http.authorizeRequests().antMatchers("/newShow").access("hasAuthority('admin')");
+        http.authorizeRequests().antMatchers("/newShow", "/categories", "/categoryInfo").access("hasAuthority('admin')");
 
         // When the user has logged in as XX.
         // But access a page that requires role YY,

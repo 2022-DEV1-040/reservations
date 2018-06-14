@@ -25,7 +25,7 @@ public class CategoryController {
     private CategoryRepository categoryRepository;
 
     @GetMapping("/categories")
-    public ModelAndView shows(ModelAndView modelAndView) {
+    public ModelAndView categories(ModelAndView modelAndView) {
 
         modelAndView.addObject("categories", categoryRepository.findAll());
         modelAndView.setViewName("categories");
@@ -48,7 +48,31 @@ public class CategoryController {
         return "categoryInfo";
     }
 
-    // Process form input data
+    @RequestMapping(value = "/createCategory", method = RequestMethod.GET)
+    public String createCategory(Model model) {
+        model.addAttribute("category",new CategoryEntity());
+
+        return "createCategory";
+    }
+
+    @RequestMapping(value = "/saveCategory", method = RequestMethod.POST)
+    public ModelAndView saveCategory(ModelAndView modelAndView, CategoryEntity categoryEntity, BindingResult bindingResult) {
+
+        if (bindingResult.hasErrors()) {
+            modelAndView.setViewName("categoryInfo");
+        } else if(categoryEntity.getNom().length()>10) {
+            modelAndView.addObject("category", categoryEntity);
+            modelAndView.addObject("errorMessage", "Le nom ne peut pas faire plus de 10 caracteres");
+            modelAndView.setViewName("categoryInfo");
+        } else {
+            categoryRepository.save(categoryEntity);
+
+          return categories(modelAndView);
+        }
+
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/modifyCategory", method = RequestMethod.POST)
     public ModelAndView modifyCategory(ModelAndView modelAndView, CategoryEntity categoryEntity, BindingResult bindingResult, @RequestParam(value = "idCategory", required = true) Long idCategory) {
 
@@ -70,5 +94,4 @@ public class CategoryController {
 
         return modelAndView;
     }
-
 }

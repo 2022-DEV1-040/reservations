@@ -4,6 +4,11 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 
 <body>
 <div th:include="fragments/menu"></div>
+<form  th:action="@{/createCategory}" method="get">
+    <div class="col-xs-5">
+        <button type="submit">Creer</button>
+    </div>
+</form>
 <table class="table data-table">
     <tbody>
     <tr th:each="category : ${categories}">

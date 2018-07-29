@@ -1,0 +1,30 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Info</title>
+</head>
+<body>
+<div th:include="fragments/menu"></div>
+
+<form action="/" th:action="@{/saveCategory}"
+      th:object="${category}" method="post" data-toggle="validator">
+
+    <div th:if="${confirmationMessage}" class="alert alert-success"
+         role="alert" th:text="${confirmationMessage}"></div>
+
+    <div th:if="${errorMessage}"
+         class="alert alert-danger" role="alert"
+         th:text="${errorMessage}"></div>
+
+    <div class="form-group input-group has-feedback">
+
+        <input type="text" th:field="*{nom}"
+               placeholder="Nom" class="form-control" required="required" />
+    </div>
+    <button type="submit">Sauvegarder</button>
+
+</form>
+
+</body>
+
+</html>

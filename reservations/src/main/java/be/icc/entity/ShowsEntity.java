@@ -16,6 +16,7 @@ public class ShowsEntity {
     private Collection<ArtisteTypeShowEntity> artisteTypeShowsById;
     private Collection<RepresentationsEntity> representationsById;
     private LocationsEntity locationsByLocationId;
+    private CategoryEntity category;
 
     @Id
     @GeneratedValue
@@ -122,5 +123,15 @@ public class ShowsEntity {
 
     public void setLocationsByLocationId(LocationsEntity locationsByLocationId) {
         this.locationsByLocationId = locationsByLocationId;
+    }
+
+    @ManyToOne(cascade = {})
+    @JoinColumn(name = "category_id", referencedColumnName = "id", nullable = false, table = "")
+    public CategoryEntity getCategory() {
+        return category;
+    }
+
+    public void setCategory(CategoryEntity category) {
+        this.category = category;
     }
 }

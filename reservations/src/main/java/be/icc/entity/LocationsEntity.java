@@ -123,7 +123,7 @@ public class LocationsEntity {
         this.representations = representations;
     }
 
-    @OneToMany(cascade = {}, mappedBy = "locationsByLocationId")
+    @OneToMany(cascade = {}, mappedBy = "location")
     public Collection<ShowsEntity> getShows() {
         return shows;
     }

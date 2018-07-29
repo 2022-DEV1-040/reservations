@@ -21,9 +21,9 @@ public class ShowsEntity {
     private String posterUrl;
     private Byte bookable;
     private BigDecimal price;
-    private Collection<ArtisteTypeShowEntity> artisteTypeShowsById;
-    private Collection<RepresentationsEntity> representationsById;
-    private LocationsEntity locationsByLocationId;
+    private Collection<ArtisteTypeShowEntity> artistes;
+    private Collection<RepresentationsEntity> representations;
+    private LocationsEntity location;
     private CategoryEntity category;
 
     @Id
@@ -106,31 +106,31 @@ public class ShowsEntity {
     }
 
     @OneToMany(cascade = {}, mappedBy = "show")
-    public Collection<ArtisteTypeShowEntity> getArtisteTypeShowsById() {
-        return artisteTypeShowsById;
+    public Collection<ArtisteTypeShowEntity> getArtistes() {
+        return artistes;
     }
 
-    public void setArtisteTypeShowsById(Collection<ArtisteTypeShowEntity> artisteTypeShowsById) {
-        this.artisteTypeShowsById = artisteTypeShowsById;
+    public void setArtistes(Collection<ArtisteTypeShowEntity> artistes) {
+        this.artistes = artistes;
     }
 
     @OneToMany(cascade = {}, mappedBy = "show")
-    public Collection<RepresentationsEntity> getRepresentationsById() {
-        return representationsById;
+    public Collection<RepresentationsEntity> getRepresentations() {
+        return representations;
     }
 
-    public void setRepresentationsById(Collection<RepresentationsEntity> representationsById) {
-        this.representationsById = representationsById;
+    public void setRepresentations(Collection<RepresentationsEntity> representations) {
+        this.representations = representations;
     }
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = false, table = "")
-    public LocationsEntity getLocationsByLocationId() {
-        return locationsByLocationId;
+    public LocationsEntity getLocation() {
+        return location;
     }
 
-    public void setLocationsByLocationId(LocationsEntity locationsByLocationId) {
-        this.locationsByLocationId = locationsByLocationId;
+    public void setLocation(LocationsEntity location) {
+        this.location = location;
     }
 
     @ManyToOne(cascade = {})

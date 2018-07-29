@@ -1,14 +1,20 @@
 package be.icc.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "roles", schema = "reservations", catalog = "")
 public class RolesEntity {
     private Integer id;
     private String role;
-    private Collection<UsersEntity> usersById;
+    private Collection<UsersEntity> users;
 
     @Id
     @GeneratedValue
@@ -47,11 +53,11 @@ public class RolesEntity {
     }
 
     @OneToMany(cascade = {}, mappedBy = "rolesByRoleId")
-    public Collection<UsersEntity> getUsersById() {
-        return usersById;
+    public Collection<UsersEntity> getUsers() {
+        return users;
     }
 
-    public void setUsersById(Collection<UsersEntity> usersById) {
-        this.usersById = usersById;
+    public void setUsers(Collection<UsersEntity> users) {
+        this.users = users;
     }
 }

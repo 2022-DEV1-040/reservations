@@ -1,8 +1,16 @@
 package be.icc.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "users", schema = "reservations", catalog = "")
 public class UsersEntity {
@@ -107,7 +115,7 @@ public class UsersEntity {
         return Objects.hash(id, login, password, firstname, lastname, email, langue);
     }
 
-    @OneToMany(cascade = {}, mappedBy = "usersByUserId")
+    @OneToMany(cascade = {}, mappedBy = "user")
     public Collection<RepresentationUserEntity> getRepresentationUsersById() {
         return representationUsersById;
     }

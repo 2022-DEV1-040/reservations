@@ -1,14 +1,21 @@
 package be.icc.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "representation_user", schema = "reservations", catalog = "")
 public class RepresentationUserEntity {
     private Integer id;
     private Integer places;
-    private RepresentationsEntity representationsByRepresentationId;
-    private UsersEntity usersByUserId;
+    private RepresentationsEntity representation;
+    private UsersEntity user;
 
     @Id
     @GeneratedValue
@@ -48,21 +55,21 @@ public class RepresentationUserEntity {
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "representation_id", referencedColumnName = "id", nullable = false, table = "")
-    public RepresentationsEntity getRepresentationsByRepresentationId() {
-        return representationsByRepresentationId;
+    public RepresentationsEntity getRepresentation() {
+        return representation;
     }
 
-    public void setRepresentationsByRepresentationId(RepresentationsEntity representationsByRepresentationId) {
-        this.representationsByRepresentationId = representationsByRepresentationId;
+    public void setRepresentation(RepresentationsEntity representation) {
+        this.representation = representation;
     }
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "user_id", referencedColumnName = "id", nullable = false, table = "")
-    public UsersEntity getUsersByUserId() {
-        return usersByUserId;
+    public UsersEntity getUser() {
+        return user;
     }
 
-    public void setUsersByUserId(UsersEntity usersByUserId) {
-        this.usersByUserId = usersByUserId;
+    public void setUser(UsersEntity user) {
+        this.user = user;
     }
 }

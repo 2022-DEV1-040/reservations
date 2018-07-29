@@ -96,8 +96,8 @@ public class ShowController {
         RepresentationsEntity representation = representationRepository.findOne(idRepresentation);
         RepresentationUserEntity representationUserEntity = new RepresentationUserEntity();
         representationUserEntity.setPlaces(1);
-        representationUserEntity.setUsersByUserId(user);
-        representationUserEntity.setRepresentationsByRepresentationId(representation);
+        representationUserEntity.setUser(user);
+        representationUserEntity.setRepresentation(representation);
         representationUserRepository.save(representationUserEntity);
         modelAndView.setViewName("validationBooking");
         return modelAndView;
@@ -107,7 +107,7 @@ public class ShowController {
     public ModelAndView reservations(ModelAndView modelAndView, Principal principal) {
         UsersEntity user = userRepository.findByLogin(principal.getName());
 
-        List<RepresentationUserEntity> representationUsers =  representationUserRepository.findByUsersByUserId(user);
+        List<RepresentationUserEntity> representationUsers =  representationUserRepository.findByUser(user);
         ArrayList<RepresentationsEntity> representations = new ArrayList<RepresentationsEntity>();
         for(RepresentationUserEntity reservation : representationUsers) {
             representations.add(representationRepository.findByRepresentationUsers(reservation));

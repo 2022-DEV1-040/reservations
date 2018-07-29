@@ -57,7 +57,7 @@ public class RepresentationsEntity {
         return Objects.hash(id, when);
     }
 
-    @OneToMany(cascade = {}, mappedBy = "representationsByRepresentationId")
+    @OneToMany(cascade = {}, mappedBy = "representation")
     public Collection<RepresentationUserEntity> getRepresentationUsers() {
         return representationUsers;
     }

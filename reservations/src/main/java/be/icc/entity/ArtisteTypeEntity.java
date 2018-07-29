@@ -1,15 +1,22 @@
 package be.icc.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "artiste_type", schema = "reservations", catalog = "")
 public class ArtisteTypeEntity {
     private Integer id;
-    private ArtistsEntity artistsByArtistId;
-    private TypesEntity typesByTypeId;
-    private Collection<ArtisteTypeShowEntity> artisteTypeShowsById;
+    private ArtistsEntity artist;
+    private TypesEntity type;
+    private Collection<ArtisteTypeShowEntity> shows;
 
     @Id
     @GeneratedValue
@@ -38,30 +45,30 @@ public class ArtisteTypeEntity {
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "artist_id", referencedColumnName = "id", nullable = false, table = "")
-    public ArtistsEntity getArtistsByArtistId() {
-        return artistsByArtistId;
+    public ArtistsEntity getArtist() {
+        return artist;
     }
 
-    public void setArtistsByArtistId(ArtistsEntity artistsByArtistId) {
-        this.artistsByArtistId = artistsByArtistId;
+    public void setArtist(ArtistsEntity artist) {
+        this.artist = artist;
     }
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "type_id", referencedColumnName = "id", nullable = false, table = "")
-    public TypesEntity getTypesByTypeId() {
-        return typesByTypeId;
+    public TypesEntity getType() {
+        return type;
     }
 
-    public void setTypesByTypeId(TypesEntity typesByTypeId) {
-        this.typesByTypeId = typesByTypeId;
+    public void setType(TypesEntity type) {
+        this.type = type;
     }
 
     @OneToMany(cascade = {}, mappedBy = "artisteTypeByArtisteTypeId")
-    public Collection<ArtisteTypeShowEntity> getArtisteTypeShowsById() {
-        return artisteTypeShowsById;
+    public Collection<ArtisteTypeShowEntity> getShows() {
+        return shows;
     }
 
-    public void setArtisteTypeShowsById(Collection<ArtisteTypeShowEntity> artisteTypeShowsById) {
-        this.artisteTypeShowsById = artisteTypeShowsById;
+    public void setShows(Collection<ArtisteTypeShowEntity> shows) {
+        this.shows = shows;
     }
 }

@@ -1,8 +1,14 @@
 package be.icc.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "types", schema = "reservations", catalog = "")
 public class TypesEntity {
@@ -46,7 +52,7 @@ public class TypesEntity {
         return Objects.hash(id, type);
     }
 
-    @OneToMany(cascade = {}, mappedBy = "typesByTypeId")
+    @OneToMany(cascade = {}, mappedBy = "type")
     public Collection<ArtisteTypeEntity> getArtisteTypesById() {
         return artisteTypesById;
     }

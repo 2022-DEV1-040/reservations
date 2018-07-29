@@ -1,15 +1,21 @@
 package be.icc.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "artists", schema = "reservations", catalog = "")
 public class ArtistsEntity {
     private Integer id;
     private String firstname;
     private String lastname;
-    private Collection<ArtisteTypeEntity> artisteTypesById;
+    private Collection<ArtisteTypeEntity> artisteTypes;
 
     @Id
     @GeneratedValue
@@ -58,12 +64,12 @@ public class ArtistsEntity {
         return Objects.hash(id, firstname, lastname);
     }
 
-    @OneToMany(cascade = {}, mappedBy = "artistsByArtistId")
-    public Collection<ArtisteTypeEntity> getArtisteTypesById() {
-        return artisteTypesById;
+    @OneToMany(cascade = {}, mappedBy = "artist")
+    public Collection<ArtisteTypeEntity> getArtisteTypes() {
+        return artisteTypes;
     }
 
-    public void setArtisteTypesById(Collection<ArtisteTypeEntity> artisteTypesById) {
-        this.artisteTypesById = artisteTypesById;
+    public void setArtisteTypes(Collection<ArtisteTypeEntity> artisteTypes) {
+        this.artisteTypes = artisteTypes;
     }
 }

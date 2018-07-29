@@ -1,13 +1,19 @@
 package be.icc.entity;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "artiste_type_show", schema = "reservations", catalog = "")
 public class ArtisteTypeShowEntity {
     private Integer id;
-    private ArtisteTypeEntity artisteTypeByArtisteTypeId;
-    private ShowsEntity showsByShowId;
+    private ArtisteTypeEntity artisteType;
+    private ShowsEntity show;
 
     @Id
     @GeneratedValue
@@ -36,21 +42,21 @@ public class ArtisteTypeShowEntity {
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "artiste_type_id", referencedColumnName = "id", nullable = false, table = "")
-    public ArtisteTypeEntity getArtisteTypeByArtisteTypeId() {
-        return artisteTypeByArtisteTypeId;
+    public ArtisteTypeEntity getArtisteType() {
+        return artisteType;
     }
 
-    public void setArtisteTypeByArtisteTypeId(ArtisteTypeEntity artisteTypeByArtisteTypeId) {
-        this.artisteTypeByArtisteTypeId = artisteTypeByArtisteTypeId;
+    public void setArtisteType(ArtisteTypeEntity artisteType) {
+        this.artisteType = artisteType;
     }
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "show_id", referencedColumnName = "id", nullable = false, table = "")
-    public ShowsEntity getShowsByShowId() {
-        return showsByShowId;
+    public ShowsEntity getShow() {
+        return show;
     }
 
-    public void setShowsByShowId(ShowsEntity showsByShowId) {
-        this.showsByShowId = showsByShowId;
+    public void setShow(ShowsEntity show) {
+        this.show = show;
     }
 }

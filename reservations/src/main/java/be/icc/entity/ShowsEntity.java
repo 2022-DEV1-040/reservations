@@ -1,9 +1,17 @@
 package be.icc.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.math.BigDecimal;
 import java.util.Collection;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "shows", schema = "reservations", catalog = "")
 public class ShowsEntity {
@@ -97,7 +105,7 @@ public class ShowsEntity {
         return Objects.hash(id, slug, title, posterUrl, bookable, price);
     }
 
-    @OneToMany(cascade = {}, mappedBy = "showsByShowId")
+    @OneToMany(cascade = {}, mappedBy = "show")
     public Collection<ArtisteTypeShowEntity> getArtisteTypeShowsById() {
         return artisteTypeShowsById;
     }

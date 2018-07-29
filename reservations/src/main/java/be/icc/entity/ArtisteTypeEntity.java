@@ -16,7 +16,7 @@ public class ArtisteTypeEntity {
     private Integer id;
     private ArtistsEntity artist;
     private TypesEntity type;
-    private Collection<ArtisteTypeShowEntity> shows;
+    private Collection<ArtisteTypeShowEntity> artisteTypeShow;
 
     @Id
     @GeneratedValue
@@ -63,12 +63,12 @@ public class ArtisteTypeEntity {
         this.type = type;
     }
 
-    @OneToMany(cascade = {}, mappedBy = "artisteTypeByArtisteTypeId")
-    public Collection<ArtisteTypeShowEntity> getShows() {
-        return shows;
+    @OneToMany(cascade = {}, mappedBy = "artisteType")
+    public Collection<ArtisteTypeShowEntity> getArtisteTypeShow() {
+        return artisteTypeShow;
     }
 
-    public void setShows(Collection<ArtisteTypeShowEntity> shows) {
-        this.shows = shows;
+    public void setArtisteTypeShow(Collection<ArtisteTypeShowEntity> artisteTypeShow) {
+        this.artisteTypeShow = artisteTypeShow;
     }
 }

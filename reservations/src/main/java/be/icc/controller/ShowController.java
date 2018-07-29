@@ -1,18 +1,30 @@
 package be.icc.controller;
 
-import be.icc.entity.*;
-import be.icc.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
+import be.icc.entity.RepresentationUserEntity;
+import be.icc.entity.RepresentationsEntity;
+import be.icc.entity.ShowsEntity;
+import be.icc.entity.UsersEntity;
+import be.icc.repository.CategoryRepository;
+import be.icc.repository.RepresentationRepository;
+import be.icc.repository.RepresentationUserRepository;
+import be.icc.repository.ShowRepository;
+import be.icc.repository.UserRepository;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.ModelAndView;
 
 @Controller
 public class ShowController {
@@ -98,7 +110,7 @@ public class ShowController {
         List<RepresentationUserEntity> representationUsers =  representationUserRepository.findByUsersByUserId(user);
         ArrayList<RepresentationsEntity> representations = new ArrayList<RepresentationsEntity>();
         for(RepresentationUserEntity reservation : representationUsers) {
-            representations.add(representationRepository.findByRepresentationUsersById(reservation));
+            representations.add(representationRepository.findByRepresentationUsers(reservation));
         }
         modelAndView.addObject("representations", representations);
 

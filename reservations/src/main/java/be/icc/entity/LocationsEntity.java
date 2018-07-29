@@ -114,7 +114,7 @@ public class LocationsEntity {
         this.locality = locality;
     }
 
-    @OneToMany(cascade = {}, mappedBy = "locationsByLocationId")
+    @OneToMany(cascade = {}, mappedBy = "location")
     public Collection<RepresentationsEntity> getRepresentations() {
         return representations;
     }

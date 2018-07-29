@@ -114,7 +114,7 @@ public class ShowsEntity {
         this.artisteTypeShowsById = artisteTypeShowsById;
     }
 
-    @OneToMany(cascade = {}, mappedBy = "showsByShowId")
+    @OneToMany(cascade = {}, mappedBy = "show")
     public Collection<RepresentationsEntity> getRepresentationsById() {
         return representationsById;
     }

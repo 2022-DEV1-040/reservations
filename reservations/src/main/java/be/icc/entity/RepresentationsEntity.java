@@ -1,17 +1,25 @@
 package be.icc.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.sql.Timestamp;
 import java.util.Collection;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "representations", schema = "reservations", catalog = "")
 public class RepresentationsEntity {
     private Long id;
     private Timestamp when;
-    private Collection<RepresentationUserEntity> representationUsersById;
-    private ShowsEntity showsByShowId;
-    private LocationsEntity locationsByLocationId;
+    private Collection<RepresentationUserEntity> representationUsers;
+    private ShowsEntity show;
+    private LocationsEntity location;
 
     @Id
     @GeneratedValue
@@ -50,31 +58,31 @@ public class RepresentationsEntity {
     }
 
     @OneToMany(cascade = {}, mappedBy = "representationsByRepresentationId")
-    public Collection<RepresentationUserEntity> getRepresentationUsersById() {
-        return representationUsersById;
+    public Collection<RepresentationUserEntity> getRepresentationUsers() {
+        return representationUsers;
     }
 
-    public void setRepresentationUsersById(Collection<RepresentationUserEntity> representationUsersById) {
-        this.representationUsersById = representationUsersById;
+    public void setRepresentationUsers(Collection<RepresentationUserEntity> representationUsers) {
+        this.representationUsers = representationUsers;
     }
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "show_id", referencedColumnName = "id", nullable = false, table = "")
-    public ShowsEntity getShowsByShowId() {
-        return showsByShowId;
+    public ShowsEntity getShow() {
+        return show;
     }
 
-    public void setShowsByShowId(ShowsEntity showsByShowId) {
-        this.showsByShowId = showsByShowId;
+    public void setShow(ShowsEntity show) {
+        this.show = show;
     }
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "location_id", referencedColumnName = "id", nullable = true, table = "")
-    public LocationsEntity getLocationsByLocationId() {
-        return locationsByLocationId;
+    public LocationsEntity getLocation() {
+        return location;
     }
 
-    public void setLocationsByLocationId(LocationsEntity locationsByLocationId) {
-        this.locationsByLocationId = locationsByLocationId;
+    public void setLocation(LocationsEntity location) {
+        this.location = location;
     }
 }

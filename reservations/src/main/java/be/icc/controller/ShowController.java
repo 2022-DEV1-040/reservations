@@ -4,7 +4,6 @@ import be.icc.entity.RepresentationUserEntity;
 import be.icc.entity.RepresentationsEntity;
 import be.icc.entity.ShowsEntity;
 import be.icc.entity.UsersEntity;
-import be.icc.repository.CategoryRepository;
 import be.icc.repository.RepresentationRepository;
 import be.icc.repository.RepresentationUserRepository;
 import be.icc.repository.ShowRepository;
@@ -20,7 +19,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -37,29 +35,19 @@ public class ShowController {
     private RepresentationRepository representationRepository;
     @Autowired
     private RepresentationUserRepository representationUserRepository;
-    @Autowired
-    private CategoryRepository categoryRepository;
+
 
     @GetMapping("/shows")
     public ModelAndView shows(ModelAndView modelAndView) {
 
         List<ShowsEntity> shows = (List<ShowsEntity>) showRepository.findAll();
         modelAndView.addObject("shows", shows);
-        modelAndView.addObject("categoriesList", categoryRepository.findAll());
         modelAndView.setViewName("shows");
 
         return modelAndView;
     }
 
-    @GetMapping("/showsParCategorie")
-    public ModelAndView showsParCategorie(ModelAndView modelAndView) {
-
-        modelAndView.addObject("categories", categoryRepository.findAll());
-        modelAndView.setViewName("showsParCategorie");
-
-        return modelAndView;
-    }
-
+    /* requete parametriser
     @GetMapping("/showsParCategorie/{name}")
     public String showsByCategoryId(@PathVariable("name")String name, Model model) {
 
@@ -67,26 +55,13 @@ public class ShowController {
         model.addAttribute("categoriesList", categoryRepository.findAll());
 
         return "shows";
-    }
+    }*/
 
     @RequestMapping(value = "searchShow", method = RequestMethod.GET)
-    public String showByName(Model model, @RequestParam(value = "name", required = false) String name, @RequestParam(value = "nomCategory", required = false) String nomCategory) {
+    public String showByName(Model model, @RequestParam(value = "name", required = false) String name) {
         if(name != null && !"".equals(name)) {
-
-            if (nomCategory != null && !"".equals(nomCategory)) {
-                model.addAttribute("shows", showRepository.findByTitleAndCategory(name, categoryRepository.findByNom(nomCategory)));
-            } else {
                 model.addAttribute("shows", showRepository.findByTitle(name));
-            }
-        } else if(nomCategory != null && !"".equals(nomCategory)){
-            model.addAttribute("shows", showRepository.findByCategory(categoryRepository.findByNom(nomCategory)));
         }
-        return "shows";
-    }
-
-    @RequestMapping(value = "searchShowByCategory", method = RequestMethod.GET)
-    public String showByCategory(Model model, @RequestParam(value = "nomCategory", required = false) String category) {
-        model.addAttribute("shows", showRepository.findByCategory(categoryRepository.findByNom(category)));
         return "shows";
     }
 
@@ -123,7 +98,6 @@ public class ShowController {
     public ModelAndView newShow(ModelAndView modelAndView, RepresentationsEntity representation) {
         modelAndView.setViewName("/newShow");
         modelAndView.addObject("representation", representation);
-        modelAndView.addObject("categoriesList", categoryRepository.findAll());
         return modelAndView;
     }
 

@@ -6,11 +6,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <div th:include="fragments/menu"></div>
 <form  th:action="@{/searchShow}" method="get">
     <input type="text" name="name" id="name" placeholder="name"/>
-    <select name="nomCategory" id="nomCategory">
-        <option th:each="dropDownItem : ${categoriesList}"
-                th:value="${dropDownItem.nom}"
-                th:text="${dropDownItem.nom}" />
-    </select>
     <input type="submit" value="Search"/>
 </form>
 
@@ -21,7 +16,6 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
         <thead>
         <tr>
             <th>Nom</th>
-            <th>Categorie</th>
             <th>Prix</th>
             <th>Heure de représentation</th>
         </tr>
@@ -29,14 +23,13 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
         <tbody>
         <tr th:each="show : ${shows}">
             <td th:text="${show.title}"/>
-            <td th:text="${show.category.nom}"/>
             <td th:text="${show.price}"/>
             <td>
             <div class="row">
-             <div th:each="representation : ${show.representationsById}">
+             <div th:each="representation : ${show.representations}">
                      <div class="col-xs-5"  th:text="${representation.when}"/>
                  <table>
-                     <tr th:each="location : ${representation.getLocationsByLocationId()}">
+                     <tr th:each="location : ${representation.getLocation()}">
                      <td>
                          <div th:text="${location.designation}"/>
                      </td>

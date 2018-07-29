@@ -17,10 +17,10 @@ xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
         </thead>
         <tbody>
         <tr th:each="representation : ${representations}">
-            <td th:text="${representation.showsByShowId.title}"/>
+            <td th:text="${representation.show.title}"/>
             <td th:text="${representation.when}"/>
-            <td th:text="${representation.locationsByLocationId.designation}"/>
-            <td th:text="${representation.locationsByLocationId.address}"/>
+            <td th:text="${representation.location.designation}"/>
+            <td th:text="${representation.location.address}"/>
         </tr>
         </tbody>
     </table>

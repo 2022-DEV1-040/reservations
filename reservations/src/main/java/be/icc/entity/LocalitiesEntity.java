@@ -1,15 +1,21 @@
 package be.icc.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "localities", schema = "reservations", catalog = "")
 public class LocalitiesEntity {
     private Integer id;
     private String postalCode;
     private String locality;
-    private Collection<LocationsEntity> locationsById;
+    private Collection<LocationsEntity> locations;
 
     @Id
     @GeneratedValue
@@ -58,12 +64,12 @@ public class LocalitiesEntity {
         return Objects.hash(id, postalCode, locality);
     }
 
-    @OneToMany(cascade = {}, mappedBy = "localitiesByLocalityId")
-    public Collection<LocationsEntity> getLocationsById() {
-        return locationsById;
+    @OneToMany(cascade = {}, mappedBy = "locality")
+    public Collection<LocationsEntity> getLocations() {
+        return locations;
     }
 
-    public void setLocationsById(Collection<LocationsEntity> locationsById) {
-        this.locationsById = locationsById;
+    public void setLocations(Collection<LocationsEntity> locations) {
+        this.locations = locations;
     }
 }

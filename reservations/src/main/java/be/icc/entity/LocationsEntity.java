@@ -1,8 +1,16 @@
 package be.icc.entity;
 
+import javax.persistence.Basic;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import java.util.Collection;
 import java.util.Objects;
-import javax.persistence.*;
 @Entity
 @Table(name = "locations", schema = "reservations", catalog = "")
 public class LocationsEntity {
@@ -12,9 +20,9 @@ public class LocationsEntity {
     private String address;
     private String website;
     private String phone;
-    private LocalitiesEntity localitiesByLocalityId;
-    private Collection<RepresentationsEntity> representationsById;
-    private Collection<ShowsEntity> showsById;
+    private LocalitiesEntity locality;
+    private Collection<RepresentationsEntity> representations;
+    private Collection<ShowsEntity> shows;
 
     @Id
     @GeneratedValue
@@ -98,29 +106,29 @@ public class LocationsEntity {
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "locality_id", referencedColumnName = "id", nullable = false, table = "")
-    public LocalitiesEntity getLocalitiesByLocalityId() {
-        return localitiesByLocalityId;
+    public LocalitiesEntity getLocality() {
+        return locality;
     }
 
-    public void setLocalitiesByLocalityId(LocalitiesEntity localitiesByLocalityId) {
-        this.localitiesByLocalityId = localitiesByLocalityId;
-    }
-
-    @OneToMany(cascade = {}, mappedBy = "locationsByLocationId")
-    public Collection<RepresentationsEntity> getRepresentationsById() {
-        return representationsById;
-    }
-
-    public void setRepresentationsById(Collection<RepresentationsEntity> representationsById) {
-        this.representationsById = representationsById;
+    public void setLocality(LocalitiesEntity locality) {
+        this.locality = locality;
     }
 
     @OneToMany(cascade = {}, mappedBy = "locationsByLocationId")
-    public Collection<ShowsEntity> getShowsById() {
-        return showsById;
+    public Collection<RepresentationsEntity> getRepresentations() {
+        return representations;
     }
 
-    public void setShowsById(Collection<ShowsEntity> showsById) {
-        this.showsById = showsById;
+    public void setRepresentations(Collection<RepresentationsEntity> representations) {
+        this.representations = representations;
+    }
+
+    @OneToMany(cascade = {}, mappedBy = "locationsByLocationId")
+    public Collection<ShowsEntity> getShows() {
+        return shows;
+    }
+
+    public void setShows(Collection<ShowsEntity> shows) {
+        this.shows = shows;
     }
 }

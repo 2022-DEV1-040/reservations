@@ -33,7 +33,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         System.out.println("Found User: " + appUser);
         List<GrantedAuthority> grantList = new ArrayList<GrantedAuthority>();
 
-        GrantedAuthority authority = new SimpleGrantedAuthority(appUser.getRolesByRoleId().getRole());
+        GrantedAuthority authority = new SimpleGrantedAuthority(appUser.getRole().getRole());
          grantList.add(authority);
 
  

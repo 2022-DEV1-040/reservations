@@ -14,7 +14,7 @@ import java.util.Objects;
 public class TypesEntity {
     private Integer id;
     private String type;
-    private Collection<ArtisteTypeEntity> artisteTypesById;
+    private Collection<ArtisteTypeEntity> artistes;
 
     @Id
     @GeneratedValue
@@ -53,11 +53,11 @@ public class TypesEntity {
     }
 
     @OneToMany(cascade = {}, mappedBy = "type")
-    public Collection<ArtisteTypeEntity> getArtisteTypesById() {
-        return artisteTypesById;
+    public Collection<ArtisteTypeEntity> getArtistes() {
+        return artistes;
     }
 
-    public void setArtisteTypesById(Collection<ArtisteTypeEntity> artisteTypesById) {
-        this.artisteTypesById = artisteTypesById;
+    public void setArtistes(Collection<ArtisteTypeEntity> artistes) {
+        this.artistes = artistes;
     }
 }

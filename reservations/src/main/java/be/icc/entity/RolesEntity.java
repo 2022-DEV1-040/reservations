@@ -52,7 +52,7 @@ public class RolesEntity {
         return Objects.hash(id, role);
     }
 
-    @OneToMany(cascade = {}, mappedBy = "rolesByRoleId")
+    @OneToMany(cascade = {}, mappedBy = "role")
     public Collection<UsersEntity> getUsers() {
         return users;
     }

@@ -21,8 +21,8 @@ public class UsersEntity {
     private String lastname;
     private String email;
     private String langue;
-    private Collection<RepresentationUserEntity> representationUsersById;
-    private RolesEntity rolesByRoleId;
+    private Collection<RepresentationUserEntity> representationUsers;
+    private RolesEntity role;
 
     @Id
     @GeneratedValue
@@ -116,21 +116,21 @@ public class UsersEntity {
     }
 
     @OneToMany(cascade = {}, mappedBy = "user")
-    public Collection<RepresentationUserEntity> getRepresentationUsersById() {
-        return representationUsersById;
+    public Collection<RepresentationUserEntity> getRepresentationUsers() {
+        return representationUsers;
     }
 
-    public void setRepresentationUsersById(Collection<RepresentationUserEntity> representationUsersById) {
-        this.representationUsersById = representationUsersById;
+    public void setRepresentationUsers(Collection<RepresentationUserEntity> representationUsers) {
+        this.representationUsers = representationUsers;
     }
 
     @ManyToOne(cascade = {})
     @JoinColumn(name = "role_id", referencedColumnName = "id", nullable = false, table = "")
-    public RolesEntity getRolesByRoleId() {
-        return rolesByRoleId;
+    public RolesEntity getRole() {
+        return role;
     }
 
-    public void setRolesByRoleId(RolesEntity rolesByRoleId) {
-        this.rolesByRoleId = rolesByRoleId;
+    public void setRole(RolesEntity role) {
+        this.role = role;
     }
 }
